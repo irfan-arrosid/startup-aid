@@ -5,12 +5,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-gonic/gin"
+	"github.com/irfan-arrosid/startup-aid/handler"
+	"github.com/irfan-arrosid/startup-aid/user"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
-
-var DB *gorm.DB
 
 func main() {
 	godotenv.Load()
@@ -23,5 +24,15 @@ func main() {
 		fmt.Println("Database connected....")
 	}
 
-	DB = db
+	userRepository := user.NewRepository(db)
+	userService := user.NewService(userRepository)
+
+	userHandler := handler.NewUserHandler(userService)
+
+	r := gin.Default()
+	api := r.Group("/api/v1")
+
+	api.POST("/users", userHandler.RegisterUser)
+
+	r.Run()
 }
