@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/irfan-arrosid/startup-aid/auth"
 	"github.com/irfan-arrosid/startup-aid/handler"
 	"github.com/irfan-arrosid/startup-aid/user"
 	"github.com/joho/godotenv"
@@ -26,8 +27,11 @@ func main() {
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
+	authService := auth.NewService()
 
-	userHandler := handler.NewUserHandler(userService)
+	fmt.Println(authService.GenerateToken(1001))
+
+	userHandler := handler.NewUserHandler(userService, authService)
 
 	r := gin.Default()
 	api := r.Group("/api/v1")

@@ -5,16 +5,18 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/irfan-arrosid/startup-aid/auth"
 	"github.com/irfan-arrosid/startup-aid/helper"
 	"github.com/irfan-arrosid/startup-aid/user"
 )
 
 type userHandler struct {
 	userService user.Service
+	authService auth.Service
 }
 
-func NewUserHandler(userService user.Service) *userHandler {
-	return &userHandler{userService}
+func NewUserHandler(userService user.Service, authService auth.Service) *userHandler {
+	return &userHandler{userService, authService}
 }
 
 func (h *userHandler) RegisterUser(c *gin.Context) {
@@ -31,7 +33,6 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 	}
 
 	newUser, err := h.userService.RegisterUser(input)
-
 	if err != nil {
 		errorMessage := gin.H{"errors": err.Error()}
 
@@ -40,7 +41,16 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 		return
 	}
 
-	formatter := user.FormatUser(newUser, "secrettoken")
+	token, err := h.authService.GenerateToken(newUser.Id)
+	if err != nil {
+		errorMessage := gin.H{"errors": err.Error()}
+
+		response := helper.APIResponse("Register account failed", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	formatter := user.FormatUser(newUser, token)
 
 	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", formatter)
 
@@ -69,7 +79,16 @@ func (h *userHandler) Login(c *gin.Context) {
 		return
 	}
 
-	formatter := user.FormatUser(loginUser, "sercrettoken")
+	token, err := h.authService.GenerateToken(loginUser.Id)
+	if err != nil {
+		errorMessage := gin.H{"errors": err.Error()}
+
+		response := helper.APIResponse("Login failed", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	formatter := user.FormatUser(loginUser, token)
 
 	response := helper.APIResponse("Successfully login", http.StatusOK, "success", formatter)
 
