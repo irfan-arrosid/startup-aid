@@ -30,7 +30,7 @@ CREATE TABLE "campaign_images" (
   "id" bigserial PRIMARY KEY,
   "campaign_id" integer,
   "filename" varchar NOT NULL,
-  "is_primary" boolean,
+  "is_primary" smallint,
   "created_at" timestamptz DEFAULT (now()),
   "updated_at" timestamptz DEFAULT (now())
 );
