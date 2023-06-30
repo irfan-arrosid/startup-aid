@@ -20,8 +20,10 @@ import (
 )
 
 func main() {
+	// Load godotenv
 	godotenv.Load()
 
+	// Connecting to database
 	db, err := gorm.Open(postgres.Open(os.Getenv("DSN")), &gorm.Config{})
 
 	if err != nil {
@@ -30,25 +32,31 @@ func main() {
 		fmt.Println("Database connected....")
 	}
 
+	// Import Repository
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
 
+	// Import Service
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
 	campaignService := campaign.NewService(campaignRepository)
 
-	campaigns, _ := campaignService.GetCampaigns(0)
-	fmt.Println(len(campaigns))
-
+	// Import Handler
 	userHandler := handler.NewUserHandler(userService, authService)
+	campaignHandler := handler.NewCampaignHandler(campaignService)
 
+	// Init Route
 	r := gin.Default()
 	api := r.Group("/api/v1")
 
+	// List of USER endpoints
 	api.POST("/users", userHandler.RegisterUser)
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailability)
 	api.POST("/avatars", authMiddelware(authService, userService), userHandler.UploadAvatar)
+
+	// List of CAMPAIGN endpoints
+	api.GET("/campaigns", campaignHandler.GetCampaigns)
 
 	r.Run()
 }
