@@ -10,6 +10,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/irfan-arrosid/startup-aid/auth"
+	"github.com/irfan-arrosid/startup-aid/campaign"
 	"github.com/irfan-arrosid/startup-aid/handler"
 	"github.com/irfan-arrosid/startup-aid/helper"
 	"github.com/irfan-arrosid/startup-aid/user"
@@ -30,10 +31,14 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
-	// campaignRepository := campaign.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
 
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+	campaignService := campaign.NewService(campaignRepository)
+
+	campaigns, _ := campaignService.GetCampaigns(0)
+	fmt.Println(len(campaigns))
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
