@@ -47,6 +47,7 @@ func main() {
 
 	// Init Route
 	r := gin.Default()
+	r.Static("/images", "./images")
 	api := r.Group("/api/v1")
 
 	// List of USER endpoints
