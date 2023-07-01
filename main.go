@@ -58,6 +58,7 @@ func main() {
 
 	// List of CAMPAIGN endpoints
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
+	api.GET("/campaigns/:id", campaignHandler.GetCampaign)
 
 	r.Run()
 }
