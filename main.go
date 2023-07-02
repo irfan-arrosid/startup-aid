@@ -59,6 +59,7 @@ func main() {
 	// List of CAMPAIGN endpoints
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
 	api.GET("/campaigns/:id", campaignHandler.GetCampaign)
+	api.POST("/campaigns", authMiddelware(authService, userService), campaignHandler.CreateCampaign)
 
 	r.Run()
 }
