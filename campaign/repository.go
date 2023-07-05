@@ -69,7 +69,7 @@ func (r *repository) Update(campaign Campaign) (Campaign, error) {
 }
 
 func (r *repository) CreateImage(campaignImage CampaignImage) (CampaignImage, error) {
-	err := r.db.Save(&campaignImage).Error
+	err := r.db.Create(&campaignImage).Error
 	if err != nil {
 		return campaignImage, err
 	}
@@ -78,7 +78,7 @@ func (r *repository) CreateImage(campaignImage CampaignImage) (CampaignImage, er
 }
 
 func (r *repository) MarkAllImagesAsNonPrimary(campaignId int) (bool, error) {
-	err := r.db.Model(&CampaignImage{}).Where("campaign_id = ?", campaignId).Update("is_primary", false).Error
+	err := r.db.Model(&CampaignImage{}).Where("campaign_id = ?", campaignId).Update("is_primary", gorm.Expr("?", 0)).Error
 	if err != nil {
 		return false, err
 	}
