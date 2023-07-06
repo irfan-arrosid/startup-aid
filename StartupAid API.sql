@@ -42,6 +42,7 @@ CREATE TABLE "transactions" (
   "amount" integer,
   "status" varchar,
   "code" varchar,
+  "payment_url" varchar,
   "created_at" timestamptz DEFAULT (now()),
   "updated_at" timestamptz DEFAULT (now())
 );

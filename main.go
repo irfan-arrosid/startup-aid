@@ -13,6 +13,7 @@ import (
 	"github.com/irfan-arrosid/startup-aid/campaign"
 	"github.com/irfan-arrosid/startup-aid/handler"
 	"github.com/irfan-arrosid/startup-aid/helper"
+	"github.com/irfan-arrosid/startup-aid/payment"
 	"github.com/irfan-arrosid/startup-aid/transaction"
 	"github.com/irfan-arrosid/startup-aid/user"
 	"github.com/joho/godotenv"
@@ -41,8 +42,9 @@ func main() {
 	// Import Service
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+	paymentService := payment.NewService()
 	campaignService := campaign.NewService(campaignRepository)
-	transactionService := transaction.NewService(transactionRepository, campaignRepository)
+	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
 
 	// Import Handler
 	userHandler := handler.NewUserHandler(userService, authService)
