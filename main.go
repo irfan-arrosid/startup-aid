@@ -13,6 +13,7 @@ import (
 	"github.com/irfan-arrosid/startup-aid/campaign"
 	"github.com/irfan-arrosid/startup-aid/handler"
 	"github.com/irfan-arrosid/startup-aid/helper"
+	"github.com/irfan-arrosid/startup-aid/transaction"
 	"github.com/irfan-arrosid/startup-aid/user"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -35,16 +36,18 @@ func main() {
 	// Import Repository
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
-	// transactionRepository := transaction.NewRepository(db)
+	transactionRepository := transaction.NewRepository(db)
 
 	// Import Service
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
 	campaignService := campaign.NewService(campaignRepository)
+	transactionService := transaction.NewService(transactionRepository)
 
 	// Import Handler
 	userHandler := handler.NewUserHandler(userService, authService)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
+	transactionHandler := handler.NewTransactionHandler(transactionService)
 
 	// Init Route
 	r := gin.Default()
@@ -63,6 +66,9 @@ func main() {
 	api.POST("/campaigns", authMiddelware(authService, userService), campaignHandler.CreateCampaign)
 	api.PUT("/campaigns/:id", authMiddelware(authService, userService), campaignHandler.UpdateCampaign)
 	api.POST("/campaign-images", authMiddelware(authService, userService), campaignHandler.UploadImage)
+
+	// List of TRANSACTION endpoints
+	api.GET("/campaigns/:id/transactions", authMiddelware(authService, userService), transactionHandler.GetCampaignTransactions)
 
 	r.Run()
 }
