@@ -35,6 +35,7 @@ func main() {
 	// Import Repository
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
+	// transactionRepository := transaction.NewRepository(db)
 
 	// Import Service
 	userService := user.NewService(userRepository)
