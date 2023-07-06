@@ -70,6 +70,7 @@ func main() {
 	// List of TRANSACTION endpoints
 	api.GET("/campaigns/:id/transactions", authMiddelware(authService, userService), transactionHandler.GetCampaignTransactions)
 	api.GET("/transactions", authMiddelware(authService, userService), transactionHandler.GetUserTransactions)
+	api.POST("/transactions", authMiddelware(authService, userService), transactionHandler.CreateTransaction)
 
 	r.Run()
 }
