@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/irfan-arrosid/startup-aid/auth"
 	"github.com/irfan-arrosid/startup-aid/campaign"
@@ -53,6 +54,7 @@ func main() {
 
 	// Init Route
 	r := gin.Default()
+	r.Use(cors.Default())
 	r.Static("/images", "./images")
 	api := r.Group("/api/v1")
 
@@ -61,6 +63,7 @@ func main() {
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailability)
 	api.POST("/avatars", authMiddelware(authService, userService), userHandler.UploadAvatar)
+	api.GET("/users/fetch", authMiddelware(authService, userService), userHandler.FetchUser)
 
 	// List of CAMPAIGN endpoints
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
@@ -73,6 +76,7 @@ func main() {
 	api.GET("/campaigns/:id/transactions", authMiddelware(authService, userService), transactionHandler.GetCampaignTransactions)
 	api.GET("/transactions", authMiddelware(authService, userService), transactionHandler.GetUserTransactions)
 	api.POST("/transactions", authMiddelware(authService, userService), transactionHandler.CreateTransaction)
+	api.POST("/transactions/notification", transactionHandler.GetNotification)
 
 	r.Run()
 }
