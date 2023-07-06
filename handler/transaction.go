@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/irfan-arrosid/startup-aid/helper"
 	"github.com/irfan-arrosid/startup-aid/transaction"
+	"github.com/irfan-arrosid/startup-aid/user"
 )
 
 type transactionHandler struct {
@@ -25,6 +26,9 @@ func (h *transactionHandler) GetCampaignTransactions(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
+
+	currentUser := c.MustGet("currentUser").(user.User)
+	input.User = currentUser
 
 	transactions, err := h.service.GetTransactionByCampaignId(input)
 	if err != nil {
