@@ -104,7 +104,7 @@
                                 Creating robotic hand for better movement
                             </p>
                             <div class="relative pt-4 progress-bar">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 h-3 rounded-lg">
+                                <div class="overflow-hidden mb-4 text-xs flex bg-gray-200 h-2 rounded">
                                     <div style="width: 20%"
                                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-progress progress-striped">
                                     </div>
@@ -115,7 +115,7 @@
                                 <div class="ml-auto font-semibold">Rp 100.000.000</div>
                             </div>
                         </div>
-                        <a href="/projects.html"
+                        <a href="/projects/1"
                             class="text-center mt-5 button-cta block w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-2 text-lg rounded-full">
                             Fund Now
                         </a>
@@ -134,7 +134,7 @@
                                 Self driving drone, no worry to drive again
                             </p>
                             <div class="relative pt-4 progress-bar">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 h-3 rounded-lg">
+                                <div class="overflow-hidden mb-4 text-xs flex bg-gray-200 h-2 rounded">
                                     <div style="width: 45%"
                                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-progress progress-striped">
                                     </div>
@@ -164,7 +164,7 @@
                                 The new era of mechanical keyboard
                             </p>
                             <div class="relative pt-4 progress-bar">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 h-3 rounded-lg">
+                                <div class="overflow-hidden mb-4 text-xs flex bg-gray-200 h-2 rounded">
                                     <div style="width: 80%"
                                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-progress progress-striped">
                                     </div>
@@ -196,7 +196,7 @@
                                 Just pair to phone and ready to set
                             </p>
                             <div class="relative pt-4 progress-bar">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 h-3 rounded-lg">
+                                <div class="overflow-hidden mb-4 text-xs flex bg-gray-200 h-2 rounded">
                                     <div style="width: 45%"
                                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-progress progress-striped">
                                     </div>
@@ -226,7 +226,7 @@
                                 Make the room keep warm automatically
                             </p>
                             <div class="relative pt-4 progress-bar">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 h-3 rounded-lg">
+                                <div class="overflow-hidden mb-4 text-xs flex bg-gray-200 h-2 rounded">
                                     <div style="width: 70%"
                                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-progress progress-striped">
                                     </div>
@@ -256,7 +256,7 @@
                                 Open the door with just one tap and click
                             </p>
                             <div class="relative pt-4 progress-bar">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 h-3 rounded-lg">
+                                <div class="overflow-hidden mb-4 text-xs flex bg-gray-200 h-2 rounded">
                                     <div style="width: 10%"
                                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-progress progress-striped">
                                     </div>
