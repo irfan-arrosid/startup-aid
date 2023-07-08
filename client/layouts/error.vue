@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .auth-background {
     background-image: url('/sign-in-background.jpg');
     background-position: center;
