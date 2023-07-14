@@ -27,32 +27,15 @@ export default defineNuxtConfig({
   },
   modules: ['@sidebase/nuxt-auth'],
   auth: {
+    baseURL: 'http://localhost:8080/api/v1',
     provider: {
       type: 'local',
-      // baseURL: 'http://localhost:8080/api/v1',
       endpoints: {
         signIn: { path: '/sessions', method: 'post' },
         // signOut: false,
-        signUp: { path: '/users/fetch', method: 'get' },
+        signUp: { path: '/users', method: 'post' },
+        getSession: { path: '/users/fetch', method: 'get' }
       }
     },
   }
 })
-
-// strategies: {
-//   local: {
-//     endpoints: {
-//       login: {
-//         url: 'http://localhost:8080/api/v1/sessions',
-//         method: 'post',
-//         propertyName: 'data.token',
-//       },
-//       logout: false,
-//       user: {
-//         url: 'http://localhost:8080/api/v1/users/fetch',
-//         method: 'get',
-//         propertyName: 'data',
-//       },
-//     },
-//   },
-// }
