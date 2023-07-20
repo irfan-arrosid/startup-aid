@@ -9,24 +9,22 @@
                 <div class="mb-6">
                     <div class="mb-4">
                         <label class="font-normal text-lg text-white block mb-3">Email Address</label>
-                        <input type="email"
+                        <input type="email" v-model="emailInput"
                             class="auth-form focus:outline-none focus:bg-purple-hover focus:shadow-outline focus:border-purple-hover-stroke focus:text-gray-100"
-                            placeholder="Write your email address here" value="julia.keeva@gmail.com" />
+                            placeholder="Write your email address here" />
                     </div>
                 </div>
                 <div class="mb-6">
                     <div class="mb-4">
                         <label class="font-normal text-lg text-white block mb-3">Password</label>
-                        <input type="password"
+                        <input @keyup.enter="signIn" type="password" v-model="passwordInput"
                             class="auth-form focus:outline-none focus:bg-purple-hover focus:shadow-outline focus:border-purple-hover-stroke focus:text-gray-100"
-                            placeholder="Write your password here" value="nasigorenglimaribbu" />
+                            placeholder="Write your password here" />
                     </div>
                 </div>
                 <div class="mb-6">
                     <div class="mb-4">
-                        <!-- <button @click="$router.push({ path: '/' })"
-                            class="block w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-4 text-lg rounded-full"> -->
-                        <button @click="signIn('credentials', { email: 'userone@gmail.com', password: 'userone123' })"
+                        <button @click="() => signIn('credentials', { email: emailInput, password: passwordInput })"
                             class="block w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-4 text-lg rounded-full">
                             Sign In
                         </button>
@@ -44,14 +42,18 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 definePageMeta({
     auth: {
         unauthenticatedOnly: true,
         // navigateAuthenticatedTo: '/',
-    }
+    },
 });
 
 const { signIn } = useAuth()
+const emailInput = ref('')
+const passwordInput = ref('')
 </script>
 
 <style scoped>
