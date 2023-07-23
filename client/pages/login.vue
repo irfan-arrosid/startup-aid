@@ -1,3 +1,22 @@
+<script setup>
+import { ref } from 'vue'
+
+definePageMeta({
+    auth: {
+        unauthenticatedOnly: true,
+        navigateAuthenticatedTo: '/',
+    },
+});
+
+const { signIn } = useAuth()
+const email = ref('')
+const password = ref('')
+
+const login = async (email, password) => {
+    await signIn('credentials', { email, password })
+}
+</script>
+
 <template>
     <div class="auth-page h-screen flex justify-center items-center">
         <div class="hidden md:block lg:w-1/3 bg-blue h-full auth-background rounded-tr-lg rounded-br-lg"></div>
@@ -9,7 +28,7 @@
                 <div class="mb-6">
                     <div class="mb-4">
                         <label class="font-normal text-lg text-white block mb-3">Email Address</label>
-                        <input type="email" v-model="emailInput"
+                        <input type="email" v-model="email"
                             class="auth-form focus:outline-none focus:bg-purple-hover focus:shadow-outline focus:border-purple-hover-stroke focus:text-gray-100"
                             placeholder="Write your email address here" />
                     </div>
@@ -17,14 +36,14 @@
                 <div class="mb-6">
                     <div class="mb-4">
                         <label class="font-normal text-lg text-white block mb-3">Password</label>
-                        <input @keyup.enter="signIn" type="password" v-model="passwordInput"
+                        <input @keyup.enter="signIn" type="password" v-model="password"
                             class="auth-form focus:outline-none focus:bg-purple-hover focus:shadow-outline focus:border-purple-hover-stroke focus:text-gray-100"
                             placeholder="Write your password here" />
                     </div>
                 </div>
                 <div class="mb-6">
                     <div class="mb-4">
-                        <button @click="() => signIn('credentials', { email: emailInput, password: passwordInput })"
+                        <button @click="login(email, password)"
                             class="block w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-4 text-lg rounded-full">
                             Sign In
                         </button>
@@ -40,21 +59,6 @@
         </div>
     </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-definePageMeta({
-    auth: {
-        unauthenticatedOnly: true,
-        // navigateAuthenticatedTo: '/',
-    },
-});
-
-const { signIn } = useAuth()
-const emailInput = ref('')
-const passwordInput = ref('')
-</script>
 
 <style scoped>
 .auth-background {

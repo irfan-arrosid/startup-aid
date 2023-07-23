@@ -33,3 +33,10 @@
         </ul>
     </header>
 </template>
+
+<script setup>
+const { status, token } = useAuth()
+
+console.log(status.value);
+console.log(token.value);
+</script>
