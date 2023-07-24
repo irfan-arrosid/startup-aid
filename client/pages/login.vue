@@ -9,11 +9,16 @@ definePageMeta({
 });
 
 const { signIn } = useAuth()
-const email = ref('')
-const password = ref('')
+const email = ref('userone@gmail.com')
+const password = ref('userone123')
 
 const login = async (email, password) => {
-    await signIn('credentials', { email, password })
+    try {
+        let response = await signIn('credentials', { email, password })
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
+    }
 }
 </script>
 

@@ -34,9 +34,10 @@
     </header>
 </template>
 
-<script setup>
-const { status, token } = useAuth()
+<!-- <script setup>
+const { status, token, data } = useAuth()
 
 console.log(status.value);
 console.log(token.value);
-</script>
+console.log(data.value);
+</script> -->

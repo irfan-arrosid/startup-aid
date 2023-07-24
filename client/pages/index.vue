@@ -1,3 +1,7 @@
+<script setup>
+const { data: campaigns } = await useFetch('http://localhost:8080/api/v1/campaigns')
+</script>
+
 <template>
     <div class="landing-page">
         <section class="landing-hero pt-5">
@@ -169,7 +173,3 @@
         <Footer />
     </div>
 </template>
-
-<script setup>
-const { data: campaigns } = await useFetch('http://localhost:8080/api/v1/campaigns')
-</script>
