@@ -1,25 +1,29 @@
 <script setup>
 import { ref } from 'vue'
 
-definePageMeta({
-    auth: {
-        unauthenticatedOnly: true,
-        navigateAuthenticatedTo: '/',
-    },
-});
-
-const { signIn } = useAuth()
 const email = ref('userone@gmail.com')
 const password = ref('userone123')
 
 const login = async (email, password) => {
+    const request = JSON.stringify({ email, password })
+
     try {
-        let response = await signIn('credentials', { email, password })
-        console.log(response.data);
+        const response = await fetch('http://localhost:8080/api/v1/sessions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: request
+        })
+        const data = await response.json()
+        const token = data.data.token
+
+        console.log(data);
     } catch (error) {
-        console.log(error);
+        console.error(error)
     }
 }
+
 </script>
 
 <template>
@@ -41,7 +45,7 @@ const login = async (email, password) => {
                 <div class="mb-6">
                     <div class="mb-4">
                         <label class="font-normal text-lg text-white block mb-3">Password</label>
-                        <input @keyup.enter="signIn" type="password" v-model="password"
+                        <input type="password" v-model="password"
                             class="auth-form focus:outline-none focus:bg-purple-hover focus:shadow-outline focus:border-purple-hover-stroke focus:text-gray-100"
                             placeholder="Write your password here" />
                     </div>

@@ -1,24 +1,10 @@
 <script>
 import { ref } from 'vue'
 
-definePageMeta({
-    // layout: "auth",
-});
-
-const { signUp } = useAuth()
 const name = ref('')
 const occupation = ref('')
 const email = ref('')
 const password = ref('')
-
-const register = async (name, occupation, email, password) => {
-    try {
-        let response = await signUp('credentials', { name, occupation, email, password })
-        console.log(response.data);
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 </script>
 
@@ -64,7 +50,7 @@ const register = async (name, occupation, email, password) => {
                 </div>
                 <div class="mb-6">
                     <div class="mb-4">
-                        <button @click="register(name, occupation, email, password)"
+                        <button @click=""
                             class="block w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-4 text-lg rounded-full">
                             Continue Sign Up
                         </button>
