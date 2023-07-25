@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
-const email = ref('userone@gmail.com')
-const password = ref('userone123')
+const email = ref('')
+const password = ref('')
 
 const login = async (email, password) => {
     const request = JSON.stringify({ email, password })
@@ -18,7 +18,12 @@ const login = async (email, password) => {
         const data = await response.json()
         const token = data.data.token
 
-        console.log(data);
+        if (response.ok) {
+            useRouter().push({ path: '/' })
+            console.log(data);
+        } else {
+            alert('sign in failed')
+        }
     } catch (error) {
         console.error(error)
     }

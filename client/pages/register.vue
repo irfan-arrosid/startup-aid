@@ -1,10 +1,34 @@
-<script>
+<script setup>
 import { ref } from 'vue'
 
 const name = ref('')
 const occupation = ref('')
 const email = ref('')
 const password = ref('')
+
+const register = async (name, occupation, email, password) => {
+    const request = JSON.stringify({ name, occupation, email, password })
+
+    try {
+        const response = await fetch('http://localhost:8080/api/v1/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: request
+        })
+        const data = await response.json()
+
+        if (response.ok) {
+            useRouter().push({ path: '/upload' })
+            console.log(data);
+        } else {
+            alert('sign up failed')
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 </script>
 
@@ -50,7 +74,7 @@ const password = ref('')
                 </div>
                 <div class="mb-6">
                     <div class="mb-4">
-                        <button @click=""
+                        <button @click="register(name, occupation, email, password)"
                             class="block w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-4 text-lg rounded-full">
                             Continue Sign Up
                         </button>
