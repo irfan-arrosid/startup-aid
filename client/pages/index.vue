@@ -117,7 +117,7 @@ const { data: campaigns } = await useFetch('http://localhost:8080/api/v1/campaig
                             </div>
                             <div class="flex progress-info">
                                 <div>{{ (campaign.current_amount / campaign.goal_amount) * 100 }}%</div>
-                                <div class="ml-auto font-semibold">Rp {{ new
+                                <div class="ml-auto font-semibold">$ {{ new
                                     Intl.NumberFormat().format(campaign.goal_amount) }}</div>
                             </div>
                         </div>

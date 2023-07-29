@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const userId = ref(4)
+const userId = ref(10)
 
 const { data: campaigns } = await useFetch(`http://localhost:8080/api/v1/campaigns?user_id=${userId.value}`)
 </script>
@@ -49,7 +49,7 @@ const { data: campaigns } = await useFetch(`http://localhost:8080/api/v1/campaig
                                 {{ campaign.name }}
                             </div>
                             <p class="text-sm text-gray-600 flex items-center mb-2">
-                                Rp. {{ new
+                                $ {{ new
                                     Intl.NumberFormat().format(campaign.goal_amount) }} &middot; {{ (campaign.current_amount /
         campaign.goal_amount) * 100 }}%
                             </p>
