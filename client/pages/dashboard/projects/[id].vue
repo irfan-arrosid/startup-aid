@@ -1,3 +1,15 @@
+<script setup>
+import { ref } from 'vue'
+const campaignId = ref(8)
+const campaign = ref(null)
+
+const response = await fetch(`http://localhost:8080/api/v1/campaigns/${campaignId.value}`)
+
+const data = await response.json()
+campaign.value = data.data
+
+</script>
+
 <template>
     <div class="project-page">
         <section class="dashboard-header pt-5">
@@ -24,42 +36,32 @@
             </div>
             <div class="block mb-2">
                 <div class="w-full lg:max-w-full lg:flex mb-4">
-                    <div class="border border-gray-400 bg-white rounded p-8 flex flex-col justify-between leading-normal">
+                    <div
+                        class="w-full border border-gray-400 bg-white rounded p-8 flex flex-col justify-between leading-normal">
                         <div>
                             <div class="text-gray-900 font-bold text-xl mb-2">
-                                Cari Uang Buat Gunpla
+                                {{ campaign.name }}
                             </div>
                             <p class="text-sm font-bold flex items-center mb-1">
                                 Description
                             </p>
                             <p class="text-gray-700 text-base">
-                                Designed to fit your dedicated typing experience. No matter
-                                what you like, linear, clicky or a little in between, we've
-                                got you covered with three Gateron switches options (Blue,
-                                Brown, Red). With a lifespan of 50 million keystroke lifespan
-                                we want to make sure that you experience same feedback for
-                                every keystroke.
-                            </p>
-                            <p class="text-gray-700 text-base">
-                                With N-key rollover (NKRO on wired mode only) you can register
-                                as many keys as you can press at once without missing out
-                                characters. It allows to use all the same media keys as
-                                conventional macOS.
+                                {{ campaign.description }}
                             </p>
                             <p class="text-sm font-bold flex items-center mb-1 mt-4">
                                 What Will Funders Get
                             </p>
                             <ul class="list-disc ml-5">
-                                <li>Equity of the startup directly from the founder</li>
-                                <li>Special service or product that startup has</li>
-                                <li>
-                                    You can also sell your equity once the startup going IPO
+                                <li v-for="perk in campaign.perks">
+                                    {{ perk }}
                                 </li>
                             </ul>
                             <p class="text-sm font-bold flex items-center mb-1 mt-4">
                                 Price
                             </p>
-                            <p class="text-4xl text-gray-700">200.000</p>
+                            <p class="text-4xl text-gray-700">$ {{ new
+                                Intl.NumberFormat().format(campaign.goal_amount) }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -76,24 +78,10 @@
                 </div>
             </div>
             <div class="flex -mx-2">
-                <div class="relative w-1/4 bg-white m-2 p-2 border border-gray-400 rounded">
+                <div class="relative w-1/4 bg-white m-2 p-2 border border-gray-400 rounded"
+                    v-for="image in campaign.images">
                     <figure class="item-thumbnail">
-                        <img src="/project-slider-1.jpg" alt="" class="rounded w-full" />
-                    </figure>
-                </div>
-                <div class="relative w-1/4 bg-white m-2 p-2 border border-gray-400 rounded">
-                    <figure class="item-thumbnail">
-                        <img src="/project-slider-2.jpg" alt="" class="rounded w-full" />
-                    </figure>
-                </div>
-                <div class="relative w-1/4 bg-white m-2 p-2 border border-gray-400 rounded">
-                    <figure class="item-thumbnail">
-                        <img src="/project-slider-3.jpg" alt="" class="rounded w-full" />
-                    </figure>
-                </div>
-                <div class="relative w-1/4 bg-white m-2 p-2 border border-gray-400 rounded">
-                    <figure class="item-thumbnail">
-                        <img src="/project-slider-4.jpg" alt="" class="rounded w-full" />
+                        <img src="{{ image }}" alt="" class="rounded w-full" />
                     </figure>
                 </div>
             </div>
